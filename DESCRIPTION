@@ -1,0 +1,22 @@
+Package: PhyloFrame
+Type: Package
+Title: Machine learning framework for to correct ancestral bias in transcriptomic data.
+Version: 0.1.0
+Author: Leslie A Smith, James A Cahill, Kiley Graim
+Maintainer: Leslie A Smith <leslie.smith1@ufl.edu>
+Description: More about what it does (maybe more than one line)
+    Use four spaces when indenting paragraphs within the Description.
+License: GNU GENERAL PUBLIC LICENSE v3.0
+Encoding: UTF-8
+LazyData: true
+Depends:
+    R (>= 4.2.3)
+Imports:
+    magrittr,
+    rsample,
+    tune,
+    glmnet
+RoxygenNote: 7.3.1
+Suggests: 
+    testthat (>= 3.0.0)
+Config/testthat/edition: 3

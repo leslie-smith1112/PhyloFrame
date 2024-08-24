@@ -1,0 +1,39 @@
+{
+  "__default__": 
+  {
+      "account": "kgraim",
+      "qos": "kgraim",
+      "cpus-per-task": "1",
+      "Nodes": 1,
+      "mem": "1gb",
+      "runtime": "40:00:00",
+      "jobname": "EAF_pipeline",
+      "mail": "leslie.smith1@ufl.edu",
+      "out": "logs/log_%j.log",
+      "err": "logs/err_%j.log"
+  },
+  "download_chromosomes":
+  {
+    "jobname": "Chrom_download",
+    "ntasks":"1",
+    "cpus-per-task": "1",
+    "mem": "45gb"
+  },
+  "parse_chromosomes":
+  {
+    "jobname": "Chrom_parsing",
+    "ntasks":"1",
+    "cpus-per-task": "1",
+    "mem": "3gb"
+  },
+  "calculate_EAF":
+  {
+    "jobname": "EAF_calc",
+    "ntasks":"1",
+    "cpus-per-task": "1",
+    "qos":"kgraim-b",
+    "mem": "70gb",
+    "time": "72:00:00"
+
+  }
+}

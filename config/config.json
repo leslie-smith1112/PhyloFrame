@@ -1,0 +1,10 @@
+{
+    "WORKFLOW" :
+    {
+        "WORKDIR": "datasets"
+    },
+    "INPUT" :
+    {
+        "STUDY" : "GSE232404"
+    }
+}
