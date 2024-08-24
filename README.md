@@ -34,11 +34,11 @@ single_expr_driver(expression_breast,train_samples, "breast", "TCGA_BRCA", "EUR"
 
 
 ## Expected Output 
-As PhyloFrame trains on many small, independent, single ancestry dataset reproduction of PhyloFrame results creates directories seperating each model's ancestry training data and the model within that ancestry. For example within the user defined results directory, the EUR model 1 results will be in: model_runs/phyloFrame/eur/model_1. Within this directory test results on other ancestry samples, as well as the model and its gene signature. Associated benchmark model results will be in model_runs/benchmark/eur/model_1.
+As PhyloFrame trains on many small, independent, single ancestry dataset reproduction of PhyloFrame results creates directories seperating each model's ancestry training data and the model within that ancestry. For example within the user defined results directory, the EUR model 1 results will be in: `model_runs/phyloFrame/eur/model_1`. Within this directory test results on other ancestry samples, as well as the model and its gene signature. Associated benchmark model results will be in `model_runs/benchmark/eur/model_1`.
 
 The results shown in this paper were run on a single core and utilized 92GB. The model runs in approximatley 2 hours and 40 minutes.  
 
-For single runs (runs trained on a single datasets not seperated into smaller dataset batches) results will be in the user defined results directory in directories phyloFrame/ and benchmark/. Wihtin the directory will be the test set results as well as model and model gene signature.
+For single runs (runs trained on a single datasets not seperated into smaller dataset batches) results will be in the user defined results directory in directories `phyloFrame/` and `benchmark/`. Wihtin the directory will be the test set results as well as model and model gene signature.
 
 The single model was run on a single core and utilizes 87GB. The model runs in approximatley 1 hour and 40 minutes. 
 
