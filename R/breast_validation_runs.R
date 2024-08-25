@@ -1,5 +1,5 @@
 
-#' Title
+#' Validation run on Sub-Saharan dataset
 #'
 #' @param results_path
 #'
