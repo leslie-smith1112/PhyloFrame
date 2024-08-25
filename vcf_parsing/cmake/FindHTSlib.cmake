@@ -1,3 +1,5 @@
+# source: https://github.com/genome/build-common
+
 # - Try to find HTSlib
 # Once done, this will define
 #
