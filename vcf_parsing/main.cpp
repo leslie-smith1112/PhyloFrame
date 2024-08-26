@@ -8,6 +8,9 @@
 #include <vector>
 using namespace std;
 
+//Spacing and open/close functions from htslib example: http://wresch.github.io/2014/11/18/process-vcf-file-with-htslib.html
+//Variable naimg from samtools
+
 int main(int argc, char **argv) {
 
     CLI::App app("Frequencies reader");
