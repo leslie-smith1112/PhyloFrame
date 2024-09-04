@@ -12,9 +12,11 @@ githubinstall("PhyloFrame")
 
 ```
 
-## Example
+## Example: Replication of paper results
 
-This is a basic example which shows you how to recreate a runs from the paper as well as to run PhyloFrame on a single datatset.
+This is a basic example which shows you how to recreate a run from the paper as well as to run PhyloFrame on a single datatset.
+
+
 
 ```{r example}
 library(PhyloFrame)
