@@ -28,7 +28,11 @@ Functional interaction networks used in PhyloFrame are from Humanbase and can be
 5983	2255	1	0.0264535
 5983	9401	1	0.513181
 ```
-in 
+Once the network is downloaded please ensure it is unzipped and in the `data-raw` directory within the project's home directory. Then run the script `run_network_annotation.R` with the name of the network file as an argument. An example run is below:
+```
+devtools::load_all()
+annotate_network(TISSUE_NETWORK)
+```
 
 To run a disease, download a network. 
 
