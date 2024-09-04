@@ -16,8 +16,24 @@ githubinstall("PhyloFrame")
 
 This is a basic example which shows you how to recreate a run from the paper as well as to run PhyloFrame on a single datatset.
 
-### Set up data
+### 1. Set up data
+PhyloFrame utilizes two large data sources to run: Functional interaction networks and enhanced allele frequencies created from Gnomadv4.1. 
 
+#### Functional Interaction Network
+Functional interaction networks used in PhyloFrame are from Humanbase and can be downloaded here: https://hb.flatironinstitute.org/download. We use the mammary epithelium, thyroid, and uterine endometrium networks in the associated paper. We use the Full network in our analysis, however any network with the format below can be used.  In this file the columns are listed on Hummanbase as follows: [entrez gene id 1][entrez gene id 2][posterior prob., with known edges set to 1][posterior prob.] We use the [posterior prob., with known edges set to 1] connection in our analysis and drop the fourth column.
+
+```{network file format}    
+5983	1663	1	0.217193
+5983	1645	1	0.0558941
+5983	2255	1	0.0264535
+5983	9401	1	0.513181
+```
+in 
+
+To run a disease, download a network. 
+
+#### Enhanced Allele Frequencies
+Previously calculated enhanced allele frequencies (EAF) can be downloaded at this link: . Please keep in mind this is a large file ~28Gb. EAFs in this file were caluclated with 8 ancestries from Gnomadv4.1 exome files. 
 
 ```{r example}
 library(PhyloFrame)
