@@ -28,16 +28,17 @@ Functional interaction networks used in PhyloFrame are from Humanbase and can be
 5983	2255	1	0.0264535
 5983	9401	1	0.513181
 ```
-Once the network is downloaded please ensure it is unzipped and in the `data-raw` directory within the project's home directory. Then run the script `run_network_annotation.R` with the name of the network file as an argument. An example run is below:
+Once the network is downloaded please ensure it is unzipped and in the `data-raw/networks_raw` directory within the project's home directory. Then run the script `run_network_annotation.R` with the name of the network file as an argument. An example run is below:
 ```
 devtools::load_all()
 annotate_network(TISSUE_NETWORK)
 ```
-
-To run a disease, download a network. 
+The above function puts the annotated network in `data-raw`, where it can be read into PhyloFrame.
 
 #### Enhanced Allele Frequencies
-Previously calculated enhanced allele frequencies (EAF) can be downloaded at this link: . Please keep in mind this is a large file ~28Gb. EAFs in this file were caluclated with 8 ancestries from Gnomadv4.1 exome files. 
+Previously calculated enhanced allele frequencies (EAF) can be downloaded at this link: . Please keep in mind this is a large file ~28Gb. EAFs in this file were caluclated with 8 ancestries from Gnomadv4.1 exome files. Please download the file and place it in the `data-raw` directory within the project's home directory. If you would like to calculate your own EAFs please see the section below: **Enhanced Allele Frequency Creation**.
+
+
 
 ```{r example}
 library(PhyloFrame)
