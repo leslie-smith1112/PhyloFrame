@@ -16,6 +16,7 @@ githubinstall("PhyloFrame")
 
 This is a basic example which shows you how to recreate a run from the paper as well as to run PhyloFrame on a single datatset.
 
+# Set up data
 
 
 ```{r example}
