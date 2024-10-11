@@ -36,7 +36,7 @@ Rscript run_network_annotation.R uterine
 The annotated network it written to a file with same network name with the appended *_symbol.tsv* (ex: uterine_symbol.tsv) in the `data-raw/` directory where it can be read into PhyloFrame.
 
 #### Enhanced Allele Frequencies
-Previously calculated enhanced allele frequencies (EAF) can be downloaded at this link: ** . Please keep in mind this is a large file ~28Gb. EAFs in this file were caluclated with 8 ancestries from Gnomadv4.1 exome files. Please download the file and place it in the `data-raw` directory within the project's home directory. If you would like to calculate your own EAFs please see the section below: [Enhanced Allele Frequency Creation](https://github.com/leslie-smith1112/PhyloFrame/edit/main/README.md#enhanced-allele-frequency-creation) .
+Previously calculated enhanced allele frequencies (EAF) can be downloaded at this link: ** . Please keep in mind this is a large file ~28Gb. EAFs in this file were caluclated with 8 ancestries from Gnomadv4.1 exome files. Please download the file and place it in the `data-raw` directory within the project's home directory. If you would like to calculate your own EAFs please see the section below: [Enhanced Allele Frequency Creation](https://github.com/leslie-smith1112/PhyloFrame/blob/main/README.md#enhanced-allele-frequency-creation).
 
 ### Example Run
 
