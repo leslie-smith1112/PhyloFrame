@@ -18,7 +18,7 @@ This is a basic example which shows you how to recreate a run from the paper as 
 ##### Please ensure you have a directory `data-raw` within the project's home directory.
 
 ### 1. Set up data
-PhyloFrame utilizes two large data sources to run: Functional interaction networks and enhanced allele frequencies created from Gnomadv4.1. 
+PhyloFrame utilizes two large data sources: Functional interaction networks and enhanced allele frequencies created from Gnomadv4.1. 
 
 #### Functional Interaction Network
 Functional interaction networks used in PhyloFrame are from Humanbase and can be downloaded here: https://hb.flatironinstitute.org/download. We use the mammary epithelium, thyroid, and uterine endometrium networks in the associated paper. We use the Full network in our analysis, however any network with the format below can be used.  In this file the columns are listed on Hummanbase as follows: [entrez gene id 1][entrez gene id 2][posterior prob., with known edges set to 1][posterior prob.] We use the [posterior prob., with known edges set to 1] connection in our analysis and drop the fourth column.
@@ -36,7 +36,7 @@ Rscript run_network_annotation.R uterine
 The annotated network it written to a file with same network name with the appended *_symbol.tsv* (ex: uterine_symbol.tsv) in the `data-raw/` directory where it can be read into PhyloFrame.
 
 #### Enhanced Allele Frequencies
-Previously calculated enhanced allele frequencies (EAF) can be downloaded at this link: ** . Please keep in mind this is a large file ~28Gb. EAFs in this file were caluclated with 8 ancestries from Gnomadv4.1 exome files. Please download the file and place it in the `data-raw` directory within the project's home directory. If you would like to calculate your own EAFs please see the section below: [Enhanced Allele Frequency Creation](https://github.com/leslie-smith1112/PhyloFrame/blob/main/README.md#enhanced-allele-frequency-creation).
+Previously calculated enhanced allele frequencies (EAF) can be downloaded at this link: ** . Please keep in mind this is a large file ~28Gb. EAFs in this file were caluclated with 8 ancestries from Gnomadv4.1 exome files. Please download the file and place it in the `data-raw/gnomad4.1_annotated/` directory within the project's home directory with the file name `gnomad.exomes.all.tsv`. If you would like to calculate your own EAFs please see the section below: [Enhanced Allele Frequency Creation](https://github.com/leslie-smith1112/PhyloFrame/blob/main/README.md#enhanced-allele-frequency-creation).
 
 ### Example Run
 
@@ -79,3 +79,4 @@ We provide a Snakemake file in the repository that may help you create your own 
   3. Which ancestries you are parsing from the vcf - *edit vcf_parsing/main.cpp* AND *code/gnomadV4_EAF_Calculation.R*
   4. Where you want to write output files - *edit Snakefile*
 
+To use your calculated EAF in a PhyloFrame run please make sure it is in the `data-raw/gnomad4.1_annotated` directory with the file name: `gnomad.exomes.all.tsv`. Or change where the file is being read from in the function `load_EAF()` in the `load_large_data.R` script. 
