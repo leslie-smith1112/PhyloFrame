@@ -30,7 +30,9 @@ Functional interaction networks used in PhyloFrame are from Humanbase and can be
 5983	9401	1	0.513181
 ```
 Once the network is downloaded please ensure it is unzipped and in the `data-raw/` directory within the project's home directory. Then run the script `run_network_annotation.R` with the name of the network file as an argument. 
-R run_network_annotation.R <user_in_network>
+```
+Rscript run_network_annotation.R <user_in_network_file>
+```
 This script makes the following example call to annotate the network:
 ```
 devtools::load_all()
