@@ -15,6 +15,7 @@ githubinstall("PhyloFrame")
 ## Example: Replication of paper results
 
 This is a basic example which shows you how to recreate a run from the paper as well as to run PhyloFrame on a single datatset.
+# Please ensure you have a directory `data-raw` within the project's home directory.
 
 ### 1. Set up data
 PhyloFrame utilizes two large data sources to run: Functional interaction networks and enhanced allele frequencies created from Gnomadv4.1. 
@@ -28,24 +29,28 @@ Functional interaction networks used in PhyloFrame are from Humanbase and can be
 5983	2255	1	0.0264535
 5983	9401	1	0.513181
 ```
-Once the network is downloaded please ensure it is unzipped and in the `data-raw/networks_raw` directory within the project's home directory. Then run the script `run_network_annotation.R` with the name of the network file as an argument. An example run is below:
+Once the network is downloaded please ensure it is unzipped and in the `data-raw/` directory within the project's home directory. Then run the script `run_network_annotation.R` with the name of the network file as an argument. 
+R run_network_annotation.R <user_in_network>
+This script makes the following example call to annotate the network:
 ```
 devtools::load_all()
-annotate_network(TISSUE_NETWORK)
+annotate_network("breast")
 ```
 The above function puts the annotated network in `data-raw`, where it can be read into PhyloFrame.
 
 #### Enhanced Allele Frequencies
-Previously calculated enhanced allele frequencies (EAF) can be downloaded at this link: . Please keep in mind this is a large file ~28Gb. EAFs in this file were caluclated with 8 ancestries from Gnomadv4.1 exome files. Please download the file and place it in the `data-raw` directory within the project's home directory. If you would like to calculate your own EAFs please see the section below: **Enhanced Allele Frequency Creation**.
+Previously calculated enhanced allele frequencies (EAF) can be downloaded at this link: ** . Please keep in mind this is a large file ~28Gb. EAFs in this file were caluclated with 8 ancestries from Gnomadv4.1 exome files. Please download the file and place it in the `data-raw` directory within the project's home directory. If you would like to calculate your own EAFs please see the section below: **Enhanced Allele Frequency Creation**.
 
+#### Example Run
 
+* Expression matrices for TCGA diseases with classification task are that are used in this project are kept as R-data. To see all associated R-data please load the package and run data() * 
 
 ```{r example}
 library(PhyloFrame)
 ## basic example code
 devtools::load_all()
 ## For reproduction of PhyloFrame results on multiple TCGA datasets
-## Define disease (breast, uterine, thyroid), name of output directory (will be in results/), and whether would would like to create new training batches
+## ARGUEMENTS: Define disease (breast, uterine, thyroid), name of output directory (will be in results/), and whether would would like to create new training batches
 devtools::load_all()
 main(breast, TCGA_Breast, FALSE)
 
