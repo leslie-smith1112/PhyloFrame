@@ -217,15 +217,7 @@ phyloFrame <- function(curr_ancestry, curr_anc_expr, cancer_type, eafs, network,
   #sample benchmark genes to match signature of phyloFrame
 
   benchmark_gene_length <- unique(phyloFrame_anc_genes) #get number of genes to add
-
-  cosmic <- readr::read_tsv(here::here("Cosmic_Genes.tsv"))
-  ## added for testing
-  #base_genes_bm <- get_variable_genes(training_set, 10000)
   options <- base_genes[!(base_genes %in% lasso_genes)] # genes to choose from
-  #options <- base_genes_bm[!(base_genes_bm %in% lasso_genes)]
-  options <- options[options %in% cosmic$`Gene Symbol`]
-  ## end edit
-
 
   benchmark_sampled_genes <- sample(options,length(benchmark_gene_length))
   benchmark_genes <- c(benchmark_sampled_genes, lasso_genes, "subtype")
