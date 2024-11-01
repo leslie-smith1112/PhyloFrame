@@ -19,3 +19,5 @@ code/
 vcf_parsing/build/
 *.pdf
 figures/
+run_predict_batches.R
+run_predict_batches.sh
