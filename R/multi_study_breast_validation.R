@@ -152,10 +152,10 @@ breast_validation_main_batches <- function(results_path){
 
   # plot results for each model
   ## - ancestry models we are testing - ##
-  ancestries <- c("admix","afr","eas","eur","mixed")
-  lapply(ancestries, function(ancestry) {
-    scat_plot_multi(disease,results_path, ancestry, samples_dir)
-  })
+#  ancestries <- c("admix","afr","eas","eur","mixed")
+ # lapply(ancestries, function(ancestry) {
+  #  scat_plot_multi(disease,results_path, ancestry, samples_dir)
+  #})
 }
 
 ####################################### Multi study Validation Set Single Batch #######################################
@@ -210,6 +210,6 @@ breast_validation_main_batches_main_single <- function(results_path, training_se
   test_model(pf_model, all_val_expr, "multi"  ,phyloFrame_dir, "Multi_study_validation", subtype1, subtype2)
 
 
-  scat_plot_single(disease,results_path)
+  #scat_plot_single(disease,results_path)
 }
 

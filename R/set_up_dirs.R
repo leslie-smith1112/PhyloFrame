@@ -33,7 +33,7 @@ set_up_output_dirs <- function(path){
     dir.create(here::here("results",path,"model_runs","phyloFrame","base","eas"))
     dir.create(here::here("results",path,"model_runs","phyloFrame","base","eur"))
     dir.create(here::here("results",path,"model_runs","phyloFrame","base","mixed"))
-    dir.create(here::here("results",path,"ancestry_genes"))
+#    dir.create(here::here("results",path,"ancestry_genes"))
   }
 }
 
