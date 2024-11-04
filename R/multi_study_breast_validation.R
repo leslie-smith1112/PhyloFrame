@@ -211,5 +211,5 @@ breast_validation_main_batches <- function(results_path){
 
 
   #scat_plot_single(disease,results_path)
-}
+#}
 
