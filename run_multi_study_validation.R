@@ -10,4 +10,4 @@ devtools::load_all()
 breast_validation_main_batches(results_path)
 
 ## - main call for the single version of phyloFrame on validation set - ##
-breast_validation_main_batches_main_single(paste0(results_path,"_single"), "TCGA")
+#breast_validation_main_batches_main_single(paste0(results_path,"_single"), "TCGA")

@@ -169,45 +169,45 @@ breast_validation_main_batches <- function(results_path){
 #' @export
 #'
 #' @examples
-breast_validation_main_batches_main_single <- function(results_path, training_set_name){
-  ## - validation_raw_expr is original name of expression matrix raw
-  ## - was subbed with multi_val_expr_exclude_GSE142102 to try without study predicted wrong often by both benchmark and phyloFrame
+# breast_validation_main_batches_main_single <- function(results_path, training_set_name){
+#   ## - validation_raw_expr is original name of expression matrix raw
+#   ## - was subbed with multi_val_expr_exclude_GSE142102 to try without study predicted wrong often by both benchmark and phyloFrame
 
-  #validation set will just be read in already correctlt defined
-  eafs  <- load_EAF()
-  message("Loaded Enhanced Allele Frequencies")
-  expression <- tcga_validation_training
-  samples_ancestry <- ancestry_breast
-  ## - for only european training: ##
-  #train_samples <- samples_ancestry$patient[samples_ancestry$consensus_ancestry == "eur"]
+#   #validation set will just be read in already correctlt defined
+#   eafs  <- load_EAF()
+#   message("Loaded Enhanced Allele Frequencies")
+#   expression <- tcga_validation_training
+#   samples_ancestry <- ancestry_breast
+#   ## - for only european training: ##
+#   #train_samples <- samples_ancestry$patient[samples_ancestry$consensus_ancestry == "eur"]
 
-  train_samples <- rownames(breast_validation_training)
-  tissue_network <- load_breast_network()
-  cancer_type <- "brca"
-  subtype1 <- "Basal"
-  subtype2 <- "Luminal"
-  message("Loaded Tissue Network")
+#   train_samples <- rownames(breast_validation_training)
+#   tissue_network <- load_breast_network()
+#   cancer_type <- "brca"
+#   subtype1 <- "Basal"
+#   subtype2 <- "Luminal"
+#   message("Loaded Tissue Network")
 
-  train_expression <- expression[rownames(expression) %in% train_samples,]
-  #test_expression <- expression[!(rownames(expression) %in% train_samples),]
+#   train_expression <- expression[rownames(expression) %in% train_samples,]
+#   #test_expression <- expression[!(rownames(expression) %in% train_samples),]
 
 
-  set_up_output_dirs_single_run(results_path) #doesnt need the model or ancestry
-  results_dir <- here::here("results",results_path)
+#   set_up_output_dirs_single_run(results_path) #doesnt need the model or ancestry
+#   results_dir <- here::here("results",results_path)
 
-  message(paste0("Results for all models will be in results/", results_path))
+#   message(paste0("Results for all models will be in results/", results_path))
 
-  #the first parameter training_set_name doesnt matter I dont think. Its used for file and directory naming that we dont have in the single expr run
-  # the trainin_set_name replaces i here - its for naming the output files
-  output <- phyloFrame(NA, train_expression, cancer_type, eafs, tissue_network, training_set_name, results_dir, TRUE)
-  bench_model <- output$benchmark
-  pf_model <- output$phyloFrame
-  curr_samples <- output$samples
-  benchmark_dir <- output$benchmark_dir
-  phyloFrame_dir <- output$phyloFrame_dir #here::here(results_dir, "phyloFrame")
+#   #the first parameter training_set_name doesnt matter I dont think. Its used for file and directory naming that we dont have in the single expr run
+#   # the trainin_set_name replaces i here - its for naming the output files
+#   output <- phyloFrame(NA, train_expression, cancer_type, eafs, tissue_network, training_set_name, results_dir, TRUE)
+#   bench_model <- output$benchmark
+#   pf_model <- output$phyloFrame
+#   curr_samples <- output$samples
+#   benchmark_dir <- output$benchmark_dir
+#   phyloFrame_dir <- output$phyloFrame_dir #here::here(results_dir, "phyloFrame")
 
-  test_model(bench_model, all_val_expr, "multi"  ,benchmark_dir, "Multi_study_validation", subtype1, subtype2)
-  test_model(pf_model, all_val_expr, "multi"  ,phyloFrame_dir, "Multi_study_validation", subtype1, subtype2)
+#   test_model(bench_model, all_val_expr, "multi"  ,benchmark_dir, "Multi_study_validation", subtype1, subtype2)
+#   test_model(pf_model, all_val_expr, "multi"  ,phyloFrame_dir, "Multi_study_validation", subtype1, subtype2)
 
 
   #scat_plot_single(disease,results_path)
