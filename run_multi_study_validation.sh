@@ -13,4 +13,4 @@
 
 ml R
 
-Rscript ./run_multi_study_validation.R breast Multi_Study_Validation_corrected_rerun
+Rscript ./run_multi_study_validation.R breast Multi_Study_Validation_corrected_rerun_tester

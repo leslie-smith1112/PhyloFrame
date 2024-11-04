@@ -12,6 +12,6 @@
 
 ml R
 
-Rscript ./run_single.R thyroid TCGA_Thyroid_Gnomad4_cosmic_single TCGA_eur_train_single_cos
-Rscript ./run_single.R uterine TCGA_Uterine_Gnomad4_cosmic_single TCGA_eur_train_single_cos
-Rscript ./run_single.R breast TCGA_Breast_Gnomad4_cosmic_single TCGA_eur_train_single_cos
+Rscript ./run_single.R thyroid TCGA_Thyroid_Gnomad4_cosmic_single_tester TCGA_eur_train_single_cos
+Rscript ./run_single.R uterine TCGA_Uterine_Gnomad4_cosmic_single_tester TCGA_eur_train_single_cos
+Rscript ./run_single.R breast TCGA_Breast_Gnomad4_cosmic_single_tester TCGA_eur_train_single_cos

@@ -12,7 +12,7 @@
 
 ml R
 
-Rscript ./run.R breast TCGA_Breast_Gnomad4_cosmic FALSE 
-Rscript ./run.R thyroid TCGA_Thyroid_Gnomad4_cosmic FALSE
-Rscript ./run.R uterine TCGA_Uterine_Gnomad4_cosmic FALSE
+Rscript ./run.R breast TCGA_Breast_Gnomad4_tester FALSE 
+Rscript ./run.R thyroid TCGA_Thyroid_Gnomad4_tester FALSE
+Rscript ./run.R uterine TCGA_Uterine_Gnomad4_tester FALSE
 #Rscript ./run.R breast TCGA_Breast_Gnomad4_range250v30genes FALSE
