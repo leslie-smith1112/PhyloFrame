@@ -7,8 +7,10 @@
 .DS_Store
 .quarto
 data_old/
-data-raw/
-*.tsv
+/data-raw/*
+!/data-raw/brca_samples/
+!/data-raw/thca_samples/
+!/data-raw/ucec_samples/
 tests/
 *.err
 *.stdout
@@ -20,5 +22,3 @@ code/
 vcf_parsing/build/
 *.pdf
 figures/
-run_predict_batches.R
-run_predict_batches.sh
