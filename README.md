@@ -10,8 +10,14 @@ PhyloFrame uses population level information to correct for unequal ancestral re
 
 You can install the development version of PhyloFrame by cloning this repository. Please note that this repository uses git lfs to store package data - so you must use git lfs to populate the R data needed to run the package.
 
+```{example repo clone}
+git clone https://github.com/leslie-smith1112/PhyloFrame.git
+#if git lfs not already installed - otherwise skip this step
+git lfs instll
+git lfs pull
+```
 
-## Example: Replication of paper results
+## Replication of paper results
 
 This is a basic example which shows you how to recreate a run from the paper as well as to run PhyloFrame on a single datatset.
 
@@ -43,18 +49,22 @@ Please note that memory usage for run_network_annotation.sh is currently set ver
 Previously calculated enhanced allele frequencies (EAF) are provided with paper's associated Source Data and can be downloaded from 
 [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.14180045.svg)](https://doi.org/10.5281/zenodo.14180045). Please keep in mind this is a large file ~28Gb. EAFs in this file were caluclated with 8 ancestries from Gnomadv4.1 exome files. Please download the file and place it in the `data-raw/` directory within the project's home directory with the file name `gnomad.exomes.all.tsv`. If you would like to calculate your own EAFs please see the section below: [Enhanced Allele Frequency Creation](https://github.com/leslie-smith1112/PhyloFrame/blob/main/README.md#enhanced-allele-frequency-creation).
 
-### Example Run
+### 2. Example Run
 
 * Expression matrices for TCGA diseases with classification task are that are used in this project are kept as R-data. To see all associated R-data please load the package and run data(package = "PhyloFrame") * 
+If you would like to run PhyloFrame on a slurm-based HPC, you can use run.sh - edit email and account information as needed. If you would like to make the PhyloFrame calls directly you can do so as follows:
 
 ```{r example}
 ## basic example code
-devtools::load_all()
-## For reproduction of PhyloFrame results on multiple TCGA datasets
-## ARGUEMENTS: Define disease (breast, uterine, thyroid), name of output directory (will be in `results/`), and whether would would like to create new training batches (to use training batches from paper leave the third argument set to FALSE - sample batch lists are kept in `data-raw/$DISEASE$_samples/` Example: `brca_samples`)
-main(breast, "TCGA_Breast", FALSE)
 
-## To run PhyloFrame on a single dataset, define a list of training samples (samples not in training set are automatically used as test samples), expression matrix with prediction task column names as "subtype", the name of the directory you want your output in (will be within `results/`, and the name of the training set (this is used to name output files)
+## load PhyloFrame library
+devtools::load_all()
+
+## 2.1 For reproduction of PhyloFrame results on multiple TCGA datasets
+## ARGUEMENTS: Define disease (breast, uterine, thyroid), name of output directory (will be in `results/`), and whether would would like to create new training batches (to use training batches from paper leave the third argument set to FALSE - sample batch lists are kept in `data-raw/$DISEASE$_samples/` Example: `brca_samples`)
+main("breast", "TCGA_Breast", FALSE)
+
+## 2.2 To run PhyloFrame on a single dataset, define a list of training samples (samples not in training set are automatically used as test samples), expression matrix with prediction task column names as "subtype", the name of the directory you want your output in (will be within `results/`, and the name of the training set (this is used to name output files)
 ## Here we use the BRCA TCGA samples with EUR ancestry samples for training data
 
 train_samples <- ancestry$patient[ancestry$consensus_ancestry == "eur"]
