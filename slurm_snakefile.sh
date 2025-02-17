@@ -1,8 +1,8 @@
 #!/bin/bash
 #SBATCH --job-name=EAF_Creation
-#SBATCH --account=kgraim
+#SBATCH --account=<account>
 #SBATCH --mail-type=END,FAIL
-#SBATCH --mail-user=leslie.smith1@ufl.edu
+#SBATCH --mail-user=<user email>
 #SBATCH --ntasks=1
 #SBATCH --cpus-per-task=1
 #SBATCH --mem=10gb
