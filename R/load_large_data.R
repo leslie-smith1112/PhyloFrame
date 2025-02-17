@@ -6,7 +6,7 @@
 #' @examples
 #' eaf  <- load_EAF()
 load_EAF <- function(){
-  eaf <- readr::read_tsv(here::here("data-raw","gnomad4.1_annotated","gnomad.exomes.all.tsv"), col_names = TRUE)
+  eaf <- readr::read_tsv(here::here("data-raw","gnomad.exomes.all.tsv"), col_names = TRUE)
   #eaf <- readr::read_tsv(here::here("data-raw", "gnomad4.1_annotated", "gnomad.exomes.all.head"), col_names = TRUE)
   #eaf <- readr::read_tsv(here::here("data-raw", "mean_enhancedAF_exome.tsv"))
 

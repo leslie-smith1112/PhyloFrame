@@ -11,6 +11,8 @@ data_old/
 !/data-raw/brca_samples/
 !/data-raw/thca_samples/
 !/data-raw/ucec_samples/
+!/data-raw/preprocess_validation_samples.R
+!/data-raw/preprocess_samples.R
 tests/
 *.err
 *.stdout

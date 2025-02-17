@@ -8,21 +8,17 @@ PhyloFrame uses population level information to correct for unequal ancestral re
 
 ## Installation
 
-You can install the development version of PhyloFrame like so:
+You can install the development version of PhyloFrame but cloning this repository. Please note that this repository uses git lfs to store package data - so you must have git lfs installed before cloning.
 
-```{r example}
-library(githubinstall)
-githubinstall("PhyloFrame")
-
-```
 
 ## Example: Replication of paper results
 
 This is a basic example which shows you how to recreate a run from the paper as well as to run PhyloFrame on a single datatset.
-##### Please ensure you have a directory `data-raw` within the project's home directory.
 
 ### 1. Set up data
-PhyloFrame utilizes two large data sources: Functional interaction networks and enhanced allele frequencies created from Gnomadv4.1. 
+PhyloFrame utilizes two large data sources: Functional interaction networks and enhanced allele frequencies for all chromosoems created from Gnomadv4.1. These are not available withing the R package data and must be downloaded and set up seperatley.
+
+Expression data and sample batches used are included in the package data.
 
 #### Functional Interaction Network
 Functional interaction networks used in PhyloFrame are from Humanbase and can be downloaded here: https://hb.flatironinstitute.org/download. We use the mammary epithelium, thyroid, and uterine endometrium networks in the associated paper. We use the Full network in our analysis, however any network with the format below can be used.  In this file the columns are listed on Hummanbase as follows: [entrez gene id 1][entrez gene id 2][posterior prob., with known edges set to 1][posterior prob.] We use the [posterior prob., with known edges set to 1] connection in our analysis and drop the fourth column.
@@ -33,30 +29,34 @@ Functional interaction networks used in PhyloFrame are from Humanbase and can be
 5983	2255	1	0.0264535
 5983	9401	1	0.513181
 ```
-Once the network is downloaded please ensure it is unzipped and in the `data-raw/` directory within the project's home directory. Then run the script `run_network_annotation.R` with the name of the network file as an argument. For example for a network file titled uterine:
+After selecting the networks - copy the links and put it in the hb_links=("") array within the run_network_annotation.sh script. Example: 
+
+```{nerwork links array}
+hb_links=("https://s3-us-west-2.amazonaws.com/humanbase/networks/blood.gz" "https://s3-us-west-2.amazonaws.com/humanbase/networks/adrenal_gland.gz")
 ```
-Rscript run_network_annotation.R uterine
-```
-The annotated network it written to a file with same network name with the appended *_symbol.tsv* (ex: uterine_symbol.tsv) in the `data-raw/` directory where it can be read into PhyloFrame.
+This script will download the network, placing it in the `data-raw/` folder, unzip it and annotate it. The annotated network is written to a file with same network name with the appended *_symbol.tsv* (ex: uterine_symbol.tsv) in the `data-raw/` directory where it can be read into PhyloFrame.
+
+Please note that memory usage for run_network_annotation.sh is currently set very high for the annotation of all humanbase networks - depending on how many networks you are annotating memory can be lowered.
+
 
 #### Enhanced Allele Frequencies
-Previously calculated enhanced allele frequencies (EAF) are provided with paper's associated Source Data. Please keep in mind this is a large file ~28Gb. EAFs in this file were caluclated with 8 ancestries from Gnomadv4.1 exome files. Please download the file and place it in the `data-raw/gnomad4.1_annotated/` directory within the project's home directory with the file name `gnomad.exomes.all.tsv`. If you would like to calculate your own EAFs please see the section below: [Enhanced Allele Frequency Creation](https://github.com/leslie-smith1112/PhyloFrame/blob/main/README.md#enhanced-allele-frequency-creation).
+Previously calculated enhanced allele frequencies (EAF) are provided with paper's associated Source Data and can be downloaded from 
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.14180045.svg)](https://doi.org/10.5281/zenodo.14180045). Please keep in mind this is a large file ~28Gb. EAFs in this file were caluclated with 8 ancestries from Gnomadv4.1 exome files. Please download the file and place it in the `data-raw/` directory within the project's home directory with the file name `gnomad.exomes.all.tsv`. If you would like to calculate your own EAFs please see the section below: [Enhanced Allele Frequency Creation](https://github.com/leslie-smith1112/PhyloFrame/blob/main/README.md#enhanced-allele-frequency-creation).
 
 ### Example Run
 
 * Expression matrices for TCGA diseases with classification task are that are used in this project are kept as R-data. To see all associated R-data please load the package and run data(package = "PhyloFrame") * 
 
 ```{r example}
-library(PhyloFrame)
 ## basic example code
 devtools::load_all()
 ## For reproduction of PhyloFrame results on multiple TCGA datasets
-## ARGUEMENTS: Define disease (breast, uterine, thyroid), name of output directory (will be in results/), and whether would would like to create new training batches
+## ARGUEMENTS: Define disease (breast, uterine, thyroid), name of output directory (will be in `results/`), and whether would would like to create new training batches (to use training batches from paper leave the third argument set to FALSE - sample batch lists are kept in `data-raw/DISEASE_samples/` Example: `brca_samples`)
 devtools::load_all()
 main(breast, TCGA_Breast, FALSE)
 
-## To run PhyloFrame on a single dataset, define a list of training samples (samples not in training set are automatically used as test samples), expression matrix with prediction task column names as "subtype", the name of the directory you want your output in (will be in results/USER_DEFINED_RESULTS_DIR, and the name of the training set (this is used to name output files)
-## Here we use the BRCA TCGA samples with EUR ancestry as samples for training data
+## To run PhyloFrame on a single dataset, define a list of training samples (samples not in training set are automatically used as test samples), expression matrix with prediction task column names as "subtype", the name of the directory you want your output in (will be within `results/`, and the name of the training set (this is used to name output files)
+## Here we use the BRCA TCGA samples with EUR ancestry samples for training data
 
 train_samples <- samples_ancestry$patient[samples_ancestry$consensus_ancestry == "eur"]
 single_expr_driver(expression_breast,train_samples, "breast", "TCGA_BRCA", "EUR")
