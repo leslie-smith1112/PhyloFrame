@@ -8,7 +8,7 @@ PhyloFrame uses population level information to correct for unequal ancestral re
 
 ## Installation
 
-You can install the development version of PhyloFrame but cloning this repository. Please note that this repository uses git lfs to store package data - so you must have git lfs installed before cloning.
+You can install the development version of PhyloFrame by cloning this repository. Please note that this repository uses git lfs to store package data - so you must use git lfs to populate the R data needed to run the package.
 
 
 ## Example: Replication of paper results
@@ -51,14 +51,13 @@ Previously calculated enhanced allele frequencies (EAF) are provided with paper'
 ## basic example code
 devtools::load_all()
 ## For reproduction of PhyloFrame results on multiple TCGA datasets
-## ARGUEMENTS: Define disease (breast, uterine, thyroid), name of output directory (will be in `results/`), and whether would would like to create new training batches (to use training batches from paper leave the third argument set to FALSE - sample batch lists are kept in `data-raw/DISEASE_samples/` Example: `brca_samples`)
-devtools::load_all()
-main(breast, TCGA_Breast, FALSE)
+## ARGUEMENTS: Define disease (breast, uterine, thyroid), name of output directory (will be in `results/`), and whether would would like to create new training batches (to use training batches from paper leave the third argument set to FALSE - sample batch lists are kept in `data-raw/$DISEASE$_samples/` Example: `brca_samples`)
+main(breast, "TCGA_Breast", FALSE)
 
 ## To run PhyloFrame on a single dataset, define a list of training samples (samples not in training set are automatically used as test samples), expression matrix with prediction task column names as "subtype", the name of the directory you want your output in (will be within `results/`, and the name of the training set (this is used to name output files)
 ## Here we use the BRCA TCGA samples with EUR ancestry samples for training data
 
-train_samples <- samples_ancestry$patient[samples_ancestry$consensus_ancestry == "eur"]
+train_samples <- ancestry$patient[ancestry$consensus_ancestry == "eur"]
 single_expr_driver(expression_breast,train_samples, "breast", "TCGA_BRCA", "EUR")
 ```
 
