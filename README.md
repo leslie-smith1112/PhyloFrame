@@ -13,7 +13,7 @@ You can install the development version of PhyloFrame by cloning this repository
 ```{example repo clone}
 git clone https://github.com/leslie-smith1112/PhyloFrame.git
 #if git lfs not already installed - otherwise skip this step
-git lfs instll
+git lfs install
 git lfs pull
 ```
 
@@ -52,7 +52,7 @@ Previously calculated enhanced allele frequencies (EAF) are provided with paper'
 ### 2. Example Run
 
 * Expression matrices for TCGA diseases with classification task are that are used in this project are kept as R-data. To see all associated R-data please load the package and run data(package = "PhyloFrame") * 
-If you would like to run PhyloFrame on a slurm-based HPC, you can use run.sh - edit email and account information as needed. If you would like to make the PhyloFrame calls directly you can do so as follows:
+If you would like to run PhyloFrame on a slurm-based HPC, you can use `run.sh` - edit email and account information as needed. If you would like to make the PhyloFrame calls directly you can do so as follows:
 
 ```{r example}
 ## basic example code
@@ -80,6 +80,9 @@ For single runs (runs trained on a single datasets not seperated into smaller da
 
 The single model was run on a single core and utilizes 87GB. The model runs in approximatley 1 hour and 40 minutes. 
 
+#### Breaking results into batches
+PhyloFrame initial output metrics are calculated for each trained batch and its prediction on other ancestry groups. To get metrics by ancestry batch (there are multiple batches per ancestry), run the `run_predict_batches.sh` script. This script expects to run on BRCA, UCEC, and THCA results at once - you will need to have already run all three diseases and define the result directories you used for each cancer within the script. 
+
 ## Enhanced Allele Frequency Creation 
 In this version of PhyloFrame Enhanced Allele Frequencies (EAFs) are calculated from population specific allele frequencies in Gnomadv4.1. In order to calculate your own EAFs, you will need vcf files from whichever population database you are using with allele frequencies for the populations you would like to include in the calculation. An example of the expected vcf format similar is the following: 
 ```
@@ -87,9 +90,9 @@ chr10   45366   rs1554737603    G       C       .       AC0;AS_VQSR   AC=0;AN=30
 
 ```
 We provide a Snakemake file in the repository that may help you create your own EAF file. The Snakefile and associated scripts will help to get started but will likely need to be heavily edited to reflect things like:
-  1. Where you are downloading your vcf files from - *edit Snakefile*
-  2. If the chromosomes are in seperate files (currently what the Snakefile expects) or if they are all in a single file - *edit Snakefile*
-  3. Which ancestries you are parsing from the vcf - *edit vcf_parsing/main.cpp* AND *code/gnomadV4_EAF_Calculation.R*
-  4. Where you want to write output files - *edit Snakefile*
+  1. Where you are downloading your vcf files from - **edit Snakefile rule `download_chromosomes`**
+  2. If the chromosomes are in seperate files (currently what the Snakefile expects) or if they are all in a single file - **edit Snakefile rule `download_chromosomes`**
+  3. Which ancestries you are parsing from the vcf - **edit vcf_parsing/main.cpp** AND **code/gnomadV4_EAF_Calculation.R**
+  4. Where you want to write output files - **edit Snakefile `workdir` AND `here_path` AND path used in rule `parse_chromosomes` AND path used in rule `calculate_EAF**
 
-To use your calculated EAF in a PhyloFrame run please make sure it is in the `data-raw/gnomad4.1_annotated` directory with the file name: `gnomad.exomes.all.tsv`. Or change where the file is being read from in the function `load_EAF()` in the `load_large_data.R` script. 
+To use your calculated EAF in a PhyloFrame run please make sure it is in the `data-raw/` directory with the file name: `gnomad.exomes.all.tsv`. Or change where the file is being read from in the function `load_EAF()` in the `load_large_data.R` script. 
