@@ -3,6 +3,38 @@
 ##### seperate into batches to get predictions #####
 #directory <- "TCGA_Breast_Gnomad4_corrected"
 
+#' Get batch number for each sample
+#'
+#' @param directory  Directory for the results of all the sample predictions
+#'
+#' @return NA
+#' @export
+#'
+#' @examples prep_batches("TCGA_Breast_Final")
+prep_batches <- function(results_dir){
+  #read in file created from about that has all disease sample batches
+  all_samples <- readr::read_tsv(here::here("data-raw","all_disease_sample_batches.tsv")) # has batch information
+  head(all_samples)
+  colnames(all_samples) <- c("sample_id", "ancestry", "batch_num", "disease")
+  all_samples <- all_samples[!(all_samples$sample_id == "x"),]
+
+  ## brca
+  #in this dataframe, train_data is the model training data, model_num is the testset batch, test data is the data the model was tested on, therefore
+  # this column is the one that should indicate sample ancestry
+  brca <- readr::read_tsv(here::here("results",results_dir, "model_runs","final_results.tsv")) #has sample predictions
+  brca <- brca[brca$sample_id != "sample_id",]
+  brca$ancestry <- plyr::mapvalues(brca$test_data, c("admix_test","afr_test","eas_test","eur_test", "mixed_test"),
+                                   c("admix","afr","eas","eur","mixed"))
+
+  brca_disease <- merge(brca, all_samples, by = c("sample_id", "ancestry"))
+  dim(brca_disease)
+  dim(brca)#cut by disease
+  colnames(brca_disease) <- c("sample_id", "sample_ancestry_batch", "subtype", ".pred_class",  ".pred_subtype1",  ".pred_subtype2", "model_train_data", "model_num",  "model_test_data", "version", "sample_batch_num", "disease")
+  write.table(brca_disease,here::here("results",results_dir, "model_runs", "sample_batches_and_predictions.tsv"), sep="\t", col.names = TRUE, row.names = FALSE)
+
+}
+
+
 
 #' Seperate sample batches and get metrics
 #'
