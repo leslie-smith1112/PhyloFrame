@@ -10,13 +10,6 @@ PhyloFrame uses population level information to correct for unequal ancestral re
 
 You can install the development version of PhyloFrame by cloning this repository. Please note that this repository uses git lfs to store package data - so you must use git lfs to populate the R data needed to run the package.
 
-```{example repo clone}
-git clone https://github.com/leslie-smith1112/PhyloFrame.git
-#if git lfs not already installed - otherwise skip this step
-git lfs install
-git lfs pull
-```
-
 ## Replication of paper results
 
 This is a basic example which shows you how to recreate a run from the paper as well as to run PhyloFrame on a single datatset.
