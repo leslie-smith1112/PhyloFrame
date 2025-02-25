@@ -73,8 +73,8 @@ For single runs (runs trained on a single datasets not seperated into smaller da
 
 The single model was run on a single core and utilizes 87GB. The model runs in approximatley 1 hour and 40 minutes. 
 
-#### Breaking results into batches
-If you are reproducing the papers out put: PhyloFrame initial output metrics are calculated for each trained batch and its prediction on other ancestry groups. To get metrics by ancestry batch (there are multiple batches per ancestry), run the `run_predict_batches.sh` script. This script expects to run on BRCA, UCEC, and THCA results at once - you will need to have already run all three diseases and define the result directories you used for each cancer within the script. 
+#### To get results by batch
+To get metrics by ancestry batch (there are multiple batches per ancestry), run the `run_predict_batches.sh` script. This script expects to run on BRCA, UCEC, and THCA results at once - you will need to have already run all three diseases and define the result directories you used for each cancer within the script. 
 
 ## Enhanced Allele Frequency Creation 
 In this version of PhyloFrame Enhanced Allele Frequencies (EAFs) are calculated from population specific allele frequencies in Gnomadv4.1. In order to calculate your own EAFs, you will need vcf files from whichever population database you are using with allele frequencies for the populations you would like to include in the calculation. An example of the expected vcf format similar is the following: 
