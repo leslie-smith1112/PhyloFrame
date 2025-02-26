@@ -39,14 +39,14 @@ tran$sample_id <- samples
 clin.cut <- data.frame(clinical$`Sample ID`,clinical$Subtype)
 colnames(clin.cut) <- c( "sample_id","subtype")
 temp <- merge(x = tran, y = clin.cut, by = "sample_id")
-#expression_breast <- temp[temp$subtype %in% c("BRCA_Basal","BRCA_LumA","BRCA_LumB"),]
+expression_breast <- temp[temp$subtype %in% c("BRCA_Basal","BRCA_LumA","BRCA_LumB"),]
 ##BELOW IS THE TEMP ADD TO GET THE SAME ORDERING OF SAMPLES AS THE INITAL PHYLOFRAME RUN ##
-tcga.binomial <- temp[temp$subtype == "BRCA_Basal",] #160 patients
-tcga.binomial1 <- temp[temp$subtype == "BRCA_LumA",] #20 patients
-binomial <- rbind(tcga.binomial,tcga.binomial1)
-tcga.binomial2 <- temp[temp$subtype == "BRCA_LumB",]
-binomial2 <- rbind(binomial,tcga.binomial2)
-expression_breast <- na.omit(binomial2)
+# tcga.binomial <- temp[temp$subtype == "BRCA_Basal",] #160 patients
+# tcga.binomial1 <- temp[temp$subtype == "BRCA_LumA",] #20 patients
+# binomial <- rbind(tcga.binomial,tcga.binomial1)
+# tcga.binomial2 <- temp[temp$subtype == "BRCA_LumB",]
+# binomial2 <- rbind(binomial,tcga.binomial2)
+# expression_breast <- na.omit(binomial2)
 
 pattern1 <- "BRCA_LumA"
 pattern2 <- "BRCA_LumB"
@@ -61,8 +61,7 @@ expression_breast$subtype <- as.factor(expression_breast$subtype)
 colnames(expression_breast) <- c("sample_id", genes, "subtype")
 rownames(expression_breast) <- expression_breast$sample_id
 expression_breast <- expression_breast[,-1]
-#expression_breast <- expression_breast[rownames(expression_breast) %in% ancestry_breast$patient,]
-temp_breast <- expression_breast[rownames(expression_breast) %in% ancestry_breast$patient,]
+expression_breast <- expression_breast[rownames(expression_breast) %in% ancestry_breast$patient,]
 
 ancestry_breast  <- ancestry_breast[ancestry_breast$patient %in% rownames(expression_breast),]
 usethis::use_data(expression_breast, overwrite = FALSE)

@@ -11,5 +11,5 @@ prep_batches(ucec)
 prep_batches(thca)
 
 predict_batches(brca, "breast")
-predict_batches(ucec, "thyroid")
-predict_batches(thca, "uterine")
+predict_batches(ucec, "uterine")
+predict_batches(thca, "thyroid")
