@@ -42,7 +42,7 @@ Please note that memory usage for run_network_annotation.sh is dependent on how 
 Previously calculated enhanced allele frequencies (EAF) are provided with paper's associated Source Data and can be downloaded from 
 [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.14180045.svg)](https://doi.org/10.5281/zenodo.14180045). Please keep in mind this is a large file ~28Gb. EAFs in this file were caluclated with 8 ancestries from Gnomadv4.1 exome files. Please download the file and place it in the `data-raw/` directory within the project's home directory with the file name `gnomad.exomes.all.tsv`. If you would like to calculate your own EAFs please see the section below: [Enhanced Allele Frequency Creation](https://github.com/leslie-smith1112/PhyloFrame/blob/main/README.md#enhanced-allele-frequency-creation).
 
-### 2. Example Run
+### 2. Example Runs
 
 * Once funcitonal interaction networks and enhanced allele frequencies are set up in the correct directories PhyloFrame can be run. Expression matrices for TCGA diseases with classification task that are used in this project are kept as R-data in the package. To see all associated R-data please load the package (`devtools::load_all()`) and run data(package = "PhyloFrame") *
 
@@ -78,14 +78,16 @@ single_expr_driver(expression_breast,train_samples, "breast", "TCGA_BRCA", "EURT
 ```
 The single model was run on a single core and utilizes 87GB. The model runs in approximatley 1 hour and 40 minutes on an HPC cluster. 
 
-## Expected Output for Reproduction of Paper Results
+## Results
+
+#### Expected Output for Reproduction of Paper Results
 As PhyloFrame trains on many small, independent, single ancestry datasets, reproduction of PhyloFrame results creates directories seperating each model's ancestry training data and the model number within that ancestry. For example within the user defined results directory, the EUR model 1 results will be in: `model_runs/phyloFrame/eur/model_1`. Within this directory are test results on other ancestry samples, as well as the model and its gene signature. The associated benchmark model results will be in `model_runs/benchmark/eur/model_1`.
 
 
-#### To get results by batch
+##### To get results by batch
 To get metrics by ancestry batch (there are multiple batches per ancestry), run the `run_predict_batches.sh` script. This script expects to run on BRCA, UCEC, and THCA results at once - you will need to have already run all three diseases and define the result directories you used for each cancer within the script. 
 
-## Expected Output for Single Dataset Runs
+#### Expected Output for Single Dataset Runs
 For single runs (runs trained on a single dataset - not seperated into smaller dataset batches) results will be in the user defined results directory in directories `phyloFrame/` and `benchmark/`. Within the directory will be the test set results as well as the model and model gene signature.
 
 ## Enhanced Allele Frequency Creation 
