@@ -61,8 +61,10 @@ devtools::load_all()
 main("breast", "TCGA_Breast", FALSE)
 ```
 
+The results shown in this paper were run on a single core and utilized 92GB. The model runs in approximatley 2 hours and 40 minutes on an HPC cluster.
+
 #### Running on Single Dataset:
-Running PhyloFrame on a single dataset must be run within R (there is currently no associated slurm script provided), it can be run as follows:
+If you would like to run PhyloFrame on a single dataset on a slurm-based HPC, you can use run_single.sh - edit email and account information as needed. If you would like to make the PhyloFrame calls directly in R you can do so as follows:
 
 ```
 ## load PhyloFrame library
@@ -74,20 +76,17 @@ devtools::load_all()
 train_samples <- ancestry$patient[ancestry$consensus_ancestry == "eur"]
 single_expr_driver(expression_breast,train_samples, "breast", "TCGA_BRCA", "EURTRAIN")
 ```
-
+The single model was run on a single core and utilizes 87GB. The model runs in approximatley 1 hour and 40 minutes on an HPC cluster. 
 
 ## Expected Output for Reproduction of Paper Results
 As PhyloFrame trains on many small, independent, single ancestry datasets, reproduction of PhyloFrame results creates directories seperating each model's ancestry training data and the model number within that ancestry. For example within the user defined results directory, the EUR model 1 results will be in: `model_runs/phyloFrame/eur/model_1`. Within this directory are test results on other ancestry samples, as well as the model and its gene signature. The associated benchmark model results will be in `model_runs/benchmark/eur/model_1`.
 
-The results shown in this paper were run on a single core and utilized 92GB. The model runs in approximatley 2 hours and 40 minutes on an HPC cluster.  
 
 #### To get results by batch
 To get metrics by ancestry batch (there are multiple batches per ancestry), run the `run_predict_batches.sh` script. This script expects to run on BRCA, UCEC, and THCA results at once - you will need to have already run all three diseases and define the result directories you used for each cancer within the script. 
 
 ## Expected Output for Single Dataset Runs
 For single runs (runs trained on a single dataset - not seperated into smaller dataset batches) results will be in the user defined results directory in directories `phyloFrame/` and `benchmark/`. Within the directory will be the test set results as well as the model and model gene signature.
-
-The single model was run on a single core and utilizes 87GB. The model runs in approximatley 1 hour and 40 minutes on an HPC cluster. 
 
 ## Enhanced Allele Frequency Creation 
 In this version of PhyloFrame Enhanced Allele Frequencies (EAFs) are calculated from population specific allele frequencies in Gnomadv4.1. In order to calculate your own EAFs, you will need vcf files from whichever population database you are using with allele frequencies for the populations you would like to include in the calculation. An example of the expected vcf format is: 
