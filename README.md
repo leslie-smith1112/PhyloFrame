@@ -20,7 +20,7 @@ PhyloFrame utilizes two large data sources: Functional interaction networks and 
 Expression data and sample batches used are included in the R package data.
 
 #### Functional Interaction Network
-Functional interaction networks used in PhyloFrame are from Humanbase and can be downloaded here: https://hb.flatironinstitute.org/download. We use the mammary epithelium, thyroid, and uterine endometrium networks in the associated paper. We use the Full network in our analysis, however any network with the format  [Node 1 (HUGO Symbol)][Node 2(HUGO Symbol )][posterior prob., with known edges set to 1][posterior prob.] below can be used - if genes are not in HUGO format, such as the ones downloaded from Humanbase, you must annotate them to get them into HUGO format. The script we used to do this is provided along with a slurm file: `run_network_annotation.sh`. Hummanbase network columns are as follows: [entrez gene id 1][entrez gene id 2][posterior prob., with known edges set to 1][posterior prob.] We use the [posterior prob., with known edges set to 1] connection in our analysis and drop the fourth column.
+Functional interaction networks used in PhyloFrame are from Humanbase and can be downloaded here: https://hb.flatironinstitute.org/download. We use the mammary epithelium, thyroid, and uterine endometrium networks in the associated paper. We use the Full network in our analysis, however any network with the format  [Node 1 (HUGO Symbol)][Node 2(HUGO Symbol )][posterior prob., with known edges set to 1][posterior prob.] below can be used - if genes are not in HUGO format, such as the ones downloaded from Humanbase, you must annotate them to get them into HUGO format. The script we used to do this is provided: `run_network_annotation.sh`. Hummanbase network columns are as follows: [entrez gene id 1][entrez gene id 2][posterior prob., with known edges set to 1][posterior prob.] We use the [posterior prob., with known edges set to 1] connection in our analysis and drop the fourth column.
 
 ```{network file format}    
 5983	1663	1	0.217193
@@ -28,14 +28,14 @@ Functional interaction networks used in PhyloFrame are from Humanbase and can be
 5983	2255	1	0.0264535
 5983	9401	1	0.513181
 ```
-After selecting the networks - copy the links and put it in the hb_links=("") array within the run_network_annotation.sh script. Example: 
+If you would like to annotate different networks - copy the links and put it in the hb_links=("") array within the run_network_annotation.sh script. Example: 
 
 ```{nerwork links array}
 hb_links=("https://s3-us-west-2.amazonaws.com/humanbase/networks/blood.gz" "https://s3-us-west-2.amazonaws.com/humanbase/networks/adrenal_gland.gz")
 ```
-This script will download the network, placing it in the `data-raw/` folder, unzip it and annotate it. The annotated network is written to a file with same network name with the appended *_symbol.tsv* (ex: uterine_symbol.tsv) in the `data-raw/` directory where it can be read into PhyloFrame.
+This script will download the network, placing it in the `data-raw/` folder, unzip it and annotate it. The annotated network is written to a file with same network name with the appended *_symbol.tsv* (ex: uterine_endometrium_symbol.tsv) in the `data-raw/` directory where it can be read into PhyloFrame.
 
-Please note that memory usage for run_network_annotation.sh is currently set very high for the annotation of all humanbase networks - depending on how many networks you are annotating memory can be lowered.
+Please note that memory usage for run_network_annotation.sh is dependent on how many networks you are annotating.
 
 
 #### Enhanced Allele Frequencies
@@ -45,7 +45,7 @@ Previously calculated enhanced allele frequencies (EAF) are provided with paper'
 ### 2. Example Run
 
 * Expression matrices for TCGA diseases with classification task are that are used in this project are kept as R-data. To see all associated R-data please load the package and run data(package = "PhyloFrame") * 
-If you would like to run PhyloFrame on a slurm-based HPC, you can use `run.sh` - edit email and account information as needed. If you would like to make the PhyloFrame calls directly you can do so as follows:
+If you would like to run PhyloFrame on a slurm-based HPC, you can use `run.sh` - edit email and account information as needed. If you would like to make the PhyloFrame calls directly in R you can do so as follows:
 
 ```{r example}
 ## basic example code
