@@ -12,7 +12,7 @@
 
 ml R
 #run.R calls main function call from R/phyloFrame_driver.R
-Rscript ./run.R breast TCGA_Breast_Gnomad4_tester FALSE 
-Rscript ./run.R thyroid TCGA_Thyroid_Gnomad4_tester FALSE
-Rscript ./run.R uterine TCGA_Uterine_Gnomad4_tester FALSE
-#Rscript ./run.R breast TCGA_Breast_Gnomad4_range250v30genes FALSE
+Rscript ./run.R breast TCGA_Breast FALSE 
+Rscript ./run.R thyroid TCGA_Thyroid FALSE
+Rscript ./run.R uterine TCGA_Uterine FALSE
+
