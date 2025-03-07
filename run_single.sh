@@ -12,6 +12,6 @@
 
 ml R
 
-Rscript ./run_single.R thyroid TCGA_Thyroid_Gnomad4_single TCGA_eur_train
-Rscript ./run_single.R uterine TCGA_Uterine_Gnomad4_single TCGA_eur_train
-Rscript ./run_single.R breast TCGA_Breast_Gnomad4_single TCGA_eur_train
+Rscript ./run_single.R thyroid TCGA_Thyroid_single TCGA_eur_train
+Rscript ./run_single.R uterine TCGA_Uterine_single TCGA_eur_train
+Rscript ./run_single.R breast TCGA_Breast_single TCGA_eur_train
