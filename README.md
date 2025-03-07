@@ -44,7 +44,9 @@ Previously calculated enhanced allele frequencies (EAF) are provided with paper'
 
 ### 2. Example Run
 
-* Expression matrices for TCGA diseases with classification task are that are used in this project are kept as R-data. To see all associated R-data please load the package and run data(package = "PhyloFrame") * 
+* Once funcitonal interaction networks and enhanced allele frequencies are set up in the correct directories PhyloFrame can be run. Expression matrices for TCGA diseases with classification task that are used in this project are kept as R-data in the package. To see all associated R-data please load the package (`devtools::load_all()`) and run data(package = "PhyloFrame") *
+
+#### Reproduction of Paper Results:
 If you would like to run PhyloFrame on a slurm-based HPC, you can use `run.sh` - edit email and account information as needed. If you would like to make the PhyloFrame calls directly in R you can do so as follows:
 
 ```{r example}
@@ -53,31 +55,39 @@ If you would like to run PhyloFrame on a slurm-based HPC, you can use `run.sh` -
 ## load PhyloFrame library
 devtools::load_all()
 
-## 2.1 For reproduction of PhyloFrame results on multiple TCGA datasets
-## ARGUEMENTS: Define disease (breast, uterine, thyroid), name of output directory (will be in `results/`), and whether would would like to create new training batches (to use training batches from paper leave the third argument set to FALSE - sample batch lists are kept in `data-raw/$DISEASE$_samples/` Example: `brca_samples`)
-main("breast", "TCGA_Breast", FALSE)
+## For reproduction of PhyloFrame results on TCGA datasets
+## ARGUEMENTS: Define disease (breast, uterine, thyroid), name of output directory (will be in `results/`), and whether would would like to create new training batches (to use training batches from paper leave the third argument set to FALSE - sample batch lists are kept in `data-raw/$DISEASE$_samples/`, for example: `brca_samples`)
 
-## 2.2 To run PhyloFrame on a single dataset, define a list of training samples (samples not in training set are automatically used as test samples), expression matrix with prediction task column names as "subtype", the name of the directory you want your output in (will be within `results/`, and the name of the training set (this is used to name output files)
+main("breast", "TCGA_Breast", FALSE)
+```
+
+#### Running on Single Dataset:
+Running PhyloFrame on a single dataset must be run within R (there is currently no associated slurm script provided), it can be run as follows:
+
+```
+## To run PhyloFrame on a single dataset, define a list of training samples (samples not in training set are automatically used as test samples), expression matrix with prediction task column names as "subtype", the name of the directory you want your output in (will be within `results/`), and the name of the training set (this is used to name output files)
 ## Here we use the BRCA TCGA samples with EUR ancestry samples for training data
 
 train_samples <- ancestry$patient[ancestry$consensus_ancestry == "eur"]
-single_expr_driver(expression_breast,train_samples, "breast", "TCGA_BRCA", "EUR")
+single_expr_driver(expression_breast,train_samples, "breast", "TCGA_BRCA", "EURTRAIN")
 ```
 
 
-## Expected Output 
-As PhyloFrame trains on many small, independent, single ancestry datasets, reproduction of PhyloFrame results creates directories seperating each model's ancestry training data and the model number within that ancestry. For example within the user defined results directory, the EUR model 1 results will be in: `model_runs/phyloFrame/eur/model_1`. Within this directory test results on other ancestry samples, as well as the model and its gene signature. Associated benchmark model results will be in `model_runs/benchmark/eur/model_1`.
+## Expected Output for Reproduction of Paper Results
+As PhyloFrame trains on many small, independent, single ancestry datasets, reproduction of PhyloFrame results creates directories seperating each model's ancestry training data and the model number within that ancestry. For example within the user defined results directory, the EUR model 1 results will be in: `model_runs/phyloFrame/eur/model_1`. Within this directory are test results on other ancestry samples, as well as the model and its gene signature. The associated benchmark model results will be in `model_runs/benchmark/eur/model_1`.
 
-The results shown in this paper were run on a single core and utilized 92GB. The model runs in approximatley 2 hours and 40 minutes.  
-For single runs (runs trained on a single datasets not seperated into smaller dataset batches) results will be in the user defined results directory in directories `phyloFrame/` and `benchmark/`. Wihtin the directory will be the test set results as well as model and model gene signature.
-
-The single model was run on a single core and utilizes 87GB. The model runs in approximatley 1 hour and 40 minutes. 
+The results shown in this paper were run on a single core and utilized 92GB. The model runs in approximatley 2 hours and 40 minutes on an HPC cluster.  
 
 #### To get results by batch
 To get metrics by ancestry batch (there are multiple batches per ancestry), run the `run_predict_batches.sh` script. This script expects to run on BRCA, UCEC, and THCA results at once - you will need to have already run all three diseases and define the result directories you used for each cancer within the script. 
 
+## Expected Output for Single Dataset Runs
+For single runs (runs trained on a single dataset - not seperated into smaller dataset batches) results will be in the user defined results directory in directories `phyloFrame/` and `benchmark/`. Within the directory will be the test set results as well as the model and model gene signature.
+
+The single model was run on a single core and utilizes 87GB. The model runs in approximatley 1 hour and 40 minutes on an HPC cluster. 
+
 ## Enhanced Allele Frequency Creation 
-In this version of PhyloFrame Enhanced Allele Frequencies (EAFs) are calculated from population specific allele frequencies in Gnomadv4.1. In order to calculate your own EAFs, you will need vcf files from whichever population database you are using with allele frequencies for the populations you would like to include in the calculation. An example of the expected vcf format similar is the following: 
+In this version of PhyloFrame Enhanced Allele Frequencies (EAFs) are calculated from population specific allele frequencies in Gnomadv4.1. In order to calculate your own EAFs, you will need vcf files from whichever population database you are using with allele frequencies for the populations you would like to include in the calculation. An example of the expected vcf format is: 
 ```
 chr10   45366   rs1554737603    G       C       .       AC0;AS_VQSR   AC=0;AN=30;AF=0.00000;AC_fin=0;AF_fin=0.00000;AN_fin=2;AC_mid=0;AF_mid=0.00000;AN_mid=2;AC_sas=0;AF_sas=0.00000;AN_sas=2  
 
@@ -88,4 +98,4 @@ We provide a Snakemake file in the repository that may help you create your own 
   3. Which ancestries you are parsing from the vcf - **edit vcf_parsing/main.cpp** AND **code/gnomadV4_EAF_Calculation.R**
   4. Where you want to write output files - **edit Snakefile `workdir` AND `here_path` AND path used in rule `parse_chromosomes` AND path used in rule `calculate_EAF**
 
-To use your calculated EAF in a PhyloFrame run please make sure it is in the `data-raw/` directory with the file name: `gnomad.exomes.all.tsv`. Or change where the file is being read from in the function `load_EAF()` in the `load_large_data.R` script. 
+To use your calculated EAF in a PhyloFrame run please make sure it is in the `data-raw/` directory with the file name: `gnomad.exomes.all.tsv`. Or change where the file is being read from in the function `load_EAF()` in the `R/load_large_data.R` script. 
