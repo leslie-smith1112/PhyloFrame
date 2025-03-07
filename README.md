@@ -20,7 +20,7 @@ PhyloFrame utilizes two large data sources: Functional interaction networks and 
 Expression data and sample batches used are included in the R package data.
 
 #### Functional Interaction Network
-Functional interaction networks used in PhyloFrame are from Humanbase and can be downloaded here: https://hb.flatironinstitute.org/download. We use the mammary epithelium, thyroid, and uterine endometrium networks in the associated paper. We use the Full network in our analysis, however any network with the format below can be used.  In this file the columns are listed on Hummanbase as follows: [entrez gene id 1][entrez gene id 2][posterior prob., with known edges set to 1][posterior prob.] We use the [posterior prob., with known edges set to 1] connection in our analysis and drop the fourth column.
+Functional interaction networks used in PhyloFrame are from Humanbase and can be downloaded here: https://hb.flatironinstitute.org/download. We use the mammary epithelium, thyroid, and uterine endometrium networks in the associated paper. We use the Full network in our analysis, however any network with the format  [Node 1 (HUGO Symbol)][Node 2(HUGO Symbol )][posterior prob., with known edges set to 1][posterior prob.] below can be used - if genes are not in HUGO format, such as the ones downloaded from Humanbase, you must annotate them to get them into HUGO format. The script we used to do this is provided along with a slurm file: `run_network_annotation.sh`. Hummanbase network columns are as follows: [entrez gene id 1][entrez gene id 2][posterior prob., with known edges set to 1][posterior prob.] We use the [posterior prob., with known edges set to 1] connection in our analysis and drop the fourth column.
 
 ```{network file format}    
 5983	1663	1	0.217193
