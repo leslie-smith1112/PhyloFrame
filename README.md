@@ -68,7 +68,7 @@ Running PhyloFrame on a single dataset must be run within R (there is currently 
 ## load PhyloFrame library
 devtools::load_all()
 
-## To run PhyloFrame on a single dataset, define a list of training samples (samples not in training set are automatically used as test samples), expression matrix with prediction task column names as "subtype", the name of the directory you want your output in (will be within `results/`), and the name of the training set (this is used to name output files)
+## To run PhyloFrame on a single dataset, define a list of training sample IDs (samples not in training set are automatically used as test samples), expression matrix with prediction task column names as "subtype", the name of the directory you want your output in (will be within `results/`), and the name of the training set (this is used to name output files)
 ## Here we use the BRCA TCGA samples with EUR ancestry samples for training data
 
 train_samples <- ancestry$patient[ancestry$consensus_ancestry == "eur"]
