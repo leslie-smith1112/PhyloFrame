@@ -8,8 +8,8 @@
 #' @export
 #'
 #' @examples
-annotate_network <- function(network){
-  network_file <- here::here("data-raw", network)
+annotate_network <- function(network_name){
+  network_file <- here::here("data-raw", network_name)
   network <- readr::read_tsv(network_file, col_names = FALSE)
   annot.df <- data.frame("Symbols" = AnnotationDbi::mapIds(org.Hs.eg.db::org.Hs.eg.db, keys = as.character(network$X2), column = "SYMBOL", keytype = "ENTREZID"), network)
   annot.df <- annot.df %>% dplyr::select(-X2)
@@ -19,7 +19,8 @@ annotate_network <- function(network){
   colnames(annot.df) <- c("Gene1","Gene2","Connection")
   rownames(annot.df) <- NULL
 
-  outfile <- here::here("data-raw", paste0(network, "_symbol.tsv"))
+  out_file <- here::here("data-raw", paste0(network_name, "_symbol.tsv"))
+
   write.table(annot.df, file = out_file,
               sep = '\t', col.names = TRUE, row.names = FALSE)
 }
