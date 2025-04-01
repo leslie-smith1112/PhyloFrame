@@ -12,7 +12,7 @@
 #' @export
 #'
 #' @examples split_subtypes("breast","eur",eur_samples,40,"Basal","Luminal)
-split_subtypes <- function(disease, ancestry, anc_samples, smallest_batch, subtype1_all, subtyp2_all){
+split_subtypes <- function(disease, ancestry, anc_samples, smallest_batch, subtype1_all, subtype2_all){
   ## - Helper function should be called once for each ancestry we want to split into batches - ##
 
   ## - calculate the number of samples for this ancestry - ##
